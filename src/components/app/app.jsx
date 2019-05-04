@@ -3,18 +3,18 @@ import WelcomeScreen from "../welcome-screen/welcome-screen";
 import PropTypes from "prop-types";
 
 const App = (props) => {
+  const clickHandler = jest.fn();
 
   return <WelcomeScreen
     errorCount = {props.errorCount}
     time = {props.gameTime}
-    onclick={props.onclick}
+    onclick={clickHandler}
   />;
 };
 
 App.propTypes = {
   gameTime: PropTypes.number.isRequired,
   errorCount: PropTypes.number.isRequired,
-  onclick: PropTypes.func,
 };
 
 export default App;
