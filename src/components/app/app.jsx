@@ -1,12 +1,16 @@
 import React from "react";
 import WelcomeScreen from "../welcome-screen/welcome-screen";
+import PropTypes from "prop-types";
 
 const App = (props) => {
-  const {errorCount, gameTime} = props;
+  App.PropTypes = {
+    gameTime: PropTypes.number.isRequired,
+    errorCount: PropTypes.number.isRequired,
+  };
 
   return <WelcomeScreen
-    errorCount = {errorCount}
-    time = {gameTime}
+    errorCount = {props.errorCount}
+    time = {props.gameTime}
   />;
 };
 
