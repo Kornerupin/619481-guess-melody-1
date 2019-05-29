@@ -3,7 +3,7 @@ import WelcomeScreen from "./../welcome-screen/welcome-screen";
 import GameArtist from "./../game-artist/game-artist";
 import GameGenre from "./../game-genre/game-genre";
 import PropTypes from "prop-types";
-import questions from "../../mocks/questions";
+import Questions from "../../mocks/questions";
 
 class App extends PureComponent {
   constructor(props) {
@@ -14,37 +14,41 @@ class App extends PureComponent {
     };
   }
 
-  render() {
-    if (this.state.question === -1) {
+  static getScreen(question, props, onUpdate) {
+    if (question === -1) {
+      const errorCount = props.errorCount;
+      const gameTime = props.gameTime;
+
       return <WelcomeScreen
-        errorCount={this.props.errorCount}
-        time={this.props.gameTime}
-        onStartButtonClick={() => {
-          this.setState({
-            question: this.state.question + 1,
-          });
-        }}
+        errorCount={errorCount}
+        time={gameTime}
+        onStartButtonClick={onUpdate}
       />;
-    } else if (this.state.question === 0) {
+    } else if (question === 0) {
       return <GameGenre
-        data={questions.QUESTIONS[0]}
-        onSetAnswer={() =>
-          this.setState({
-            question: this.state.question + 1,
-          })
-        }
+        data={Questions.QUESTIONS[question]}
+        onSetAnswer={onUpdate}
       />;
-    } else if (this.state.question === 1) {
+    } else if (question === 1) {
       return <GameArtist
-        data={questions.QUESTIONS[1]}
-        onSetAnswer={() =>
-          this.setState({
-            question: this.state.question + 1,
-          })
-        }
+        data={Questions.QUESTIONS[question]}
+        onSetAnswer={onUpdate}
       />;
     }
-    return 1;
+    return `Error - incorrect screen id`;
+  }
+
+  render() {
+    // const errorCount = this.props.errorCount;
+    // const gameTime = this.props.gameTime;
+    // const questions = this.props.questions;
+    const question = this.state.question;
+
+    return App.getScreen(question, this.props, () => {
+      this.setState({
+        question: question + 1,
+      });
+    });
   }
 }
 

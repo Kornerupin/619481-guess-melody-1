@@ -26,8 +26,8 @@ const GameGenre = (props) => {
       </a>
 
       <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
-        <circle className="timer__line" cx="390" cy="390" r="370"
-          style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"/>
+        {/* <circle className="timer__line" cx="390" cy="390" r="370"*/}
+        {/*  style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"/>*/}
       </svg>
 
       <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
@@ -44,7 +44,7 @@ const GameGenre = (props) => {
     </header>
 
     <section className="game__screen">
-      <h2 className="game__title">Выберите инди-рок треки</h2>
+      <h2 className="game__title">Выберите {data.genre} треки</h2>
       <form className="game__tracks" onSubmit={() => onSetAnswer()}>
 
         {tracs}
@@ -60,4 +60,4 @@ GameGenre.propTypes = {
   onSetAnswer: PropTypes.func.isRequired,
 };
 
-export default {GameGenre};
+export default GameGenre;
