@@ -55,7 +55,7 @@ const GameGenre = (props) => {
   </section>;
 };
 
-GameGenre.PropTypes = {
+GameGenre.propTypes = {
   data: PropTypes.object.isRequired,
   onSetAnswer: PropTypes.func.isRequired,
 };

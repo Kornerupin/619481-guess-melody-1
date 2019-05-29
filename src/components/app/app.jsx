@@ -5,12 +5,12 @@ import GameGenre from "./../game-genre/game-genre";
 import PropTypes from "prop-types";
 import questions from "../../mocks/questions";
 
-class App extends React.PureComponent {
+class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      question: 1,
+      question: -1,
     };
   }
 
