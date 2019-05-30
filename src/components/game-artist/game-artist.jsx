@@ -5,25 +5,20 @@ class GameArtist extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      result: {
-        'answer-1': false,
-        'answer-2': false,
-        'answer-3': false,
-        'answer-4': false,
-      },
-    };
-
     this.setUserAnswer = this.setUserAnswer.bind(this);
   }
 
   setUserAnswer(evt) {
-    this.setState({
-      result: {
-        [evt.currentTarget.id]: evt.currentTarget.checked
-      },
-    });
-    this.props.onSetAnswer(this.state.result);
+    const result = {
+      'answer-1': false,
+      'answer-2': false,
+      'answer-3': false,
+      'answer-4': false,
+    };
+
+    result[evt.currentTarget.id] = evt.currentTarget.checked;
+
+    this.props.onSetAnswer(result);
   }
 
   render() {
