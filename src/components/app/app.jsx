@@ -3,7 +3,6 @@ import WelcomeScreen from "./../welcome-screen/welcome-screen";
 import GameArtist from "./../game-artist/game-artist";
 import GameGenre from "./../game-genre/game-genre";
 import PropTypes from "prop-types";
-import Questions from "../../mocks/questions";
 
 class App extends PureComponent {
   constructor(props) {
@@ -26,16 +25,20 @@ class App extends PureComponent {
       />;
     } else if (question === 0) {
       return <GameGenre
-        data={Questions.QUESTIONS[question]}
+        data={props.questions[question]}
         onSetAnswer={onUpdate}
       />;
     } else if (question === 1) {
       return <GameArtist
-        data={Questions.QUESTIONS[question]}
+        data={props.questions[question]}
         onSetAnswer={onUpdate}
       />;
     }
-    return `Error - incorrect screen id`;
+    return <WelcomeScreen
+      errorCount={props.errorCount}
+      time={props.gameTime}
+      onStartButtonClick={onUpdate}
+    />;
   }
 
   render() {
@@ -44,10 +47,13 @@ class App extends PureComponent {
     // const questions = this.props.questions;
     const question = this.state.question;
 
-    return App.getScreen(question, this.props, () => {
+    return App.getScreen(question, this.props, (result = false) => {
       this.setState({
-        question: question + 1,
+        question: (question < 1) ? question + 1 : -1,
       });
+
+      console.log(result);
+      console.log(question);
     });
   }
 }

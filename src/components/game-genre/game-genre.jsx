@@ -5,6 +5,18 @@ const GameGenre = (props) => {
   const data = props.data;
   const onSetAnswer = props.onSetAnswer;
 
+  const result = {
+    'answer-1': false,
+    'answer-2': false,
+    'answer-3': false,
+    'answer-4': false,
+  };
+
+  const getUserAnswer = (evt) => {
+    // Записываем новое состояние чекбокса в объект.
+    result[evt.currentTarget.getAttribute(`id`)] = evt.currentTarget.checked;
+  };
+
   const tracs = data.answers.map((answer, key) =>
     <div className="track" key={key}>
       <button className="track__button track__button--pause" type="button"></button>
@@ -12,8 +24,8 @@ const GameGenre = (props) => {
         <audio src={answer.src}></audio>
       </div>
       <div className="game__answer">
-        <input className="game__input visually-hidden" type="checkbox" name="answer" value="answer-1" id={`answer` + (key + 1)} />
-        <label className="game__check" htmlFor={`answer` + (key + 1)}>Отметить</label>
+        <input className="game__input visually-hidden" type="checkbox" name="answer" onClick={getUserAnswer} value={`answer-` + (key + 1)} id={`answer-` + (key + 1)} />
+        <label className="game__check" htmlFor={`answer-` + (key + 1)}>Отметить</label>
       </div>
     </div>
   );
@@ -49,7 +61,7 @@ const GameGenre = (props) => {
 
     <section className="game__screen">
       <h2 className="game__title">Выберите {data.genre} треки</h2>
-      <form className="game__tracks" onSubmit={() => onSetAnswer()}>
+      <form className="game__tracks" onSubmit={() => onSetAnswer(result)}>
 
         {tracs}
 

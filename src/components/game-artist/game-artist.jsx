@@ -5,11 +5,24 @@ const GameArtist = (props) => {
   const data = props.data;
   const onSetAnswer = props.onSetAnswer;
 
+  const result = {
+    'answer-1': false,
+    'answer-2': false,
+    'answer-3': false,
+    'answer-4': false,
+  };
+
+  const getUserAnswer = (evt) => {
+    result[evt.currentTarget.getAttribute(`id`)] = evt.currentTarget.checked;
+    onSetAnswer(result);
+  };
+
   const artists = data.artists.map((artist, key) =>
     <div className="artist" key={key}>
-      <input className="artist__input visually-hidden" type="radio" name="answer" value="artist-1" id={`answer-` + (key + 1)} />
+      <input className="artist__input visually-hidden" onClick={getUserAnswer}
+        type="radio" name="answer" value={`artist-` + (key + 1)} id={`answer-` + (key + 1)} />
       <label className="artist__name" htmlFor={`answer-` + (key + 1)}>
-        <img className="artist__picture" src={artist.img} alt={artist.name} />EE
+        <img className="artist__picture" src={artist.img} alt={artist.name} />
         {artist.name}
       </label>
     </div>
@@ -51,7 +64,7 @@ const GameArtist = (props) => {
         <audio src={data.src}></audio>
       </div>
 
-      <form className="game__artist" onSubmit={() => onSetAnswer()}>
+      <form className="game__artist">
 
         {artists}
 
